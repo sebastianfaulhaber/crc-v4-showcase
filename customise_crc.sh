@@ -1,5 +1,5 @@
-# Extract credentials for kubeadmin
-KUBEADMIN_PWD=`crc console --credentials |sed '$!d' | sed -e "s/'//g" | sed -e "s/\.//g" | awk 'NF>1{print $NF}'`
+# Extract credentials for kubeadmin (see https://www-user.tu-chemnitz.de/~hot/unix_linux_werkzeugkasten/awk.html)
+KUBEADMIN_PWD=`crc console --credentials | awk '/kubeadmin/' | awk '{print $(NF-1)}'`
 CRC_ADMIN_URL='https://api.crc.testing:6443'
 
 # Login with kubeadmin
