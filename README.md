@@ -46,4 +46,4 @@ source $(brew --prefix)/etc/bash_completion && oc completion bash > ~/.oc_bash_c
 
 # TODO
 
-## TODO: Link Build to application
+## TODO: Add build pipelines
