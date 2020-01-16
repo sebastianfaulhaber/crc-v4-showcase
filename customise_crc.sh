@@ -1,3 +1,6 @@
+echo '###############################################################################'
+echo 'Customize authentication'
+echo '###############################################################################'
 # Extract credentials for kubeadmin (see https://www-user.tu-chemnitz.de/~hot/unix_linux_werkzeugkasten/awk.html)
 KUBEADMIN_PWD=`crc console --credentials | awk '/kubeadmin/' | awk '{print $(NF-1)}'`
 CRC_ADMIN_URL='https://api.crc.testing:6443'
@@ -18,7 +21,15 @@ sleep 2
 oc login -u admin -p admin $CRC_ADMIN_URL
 oc delete secrets kubeadmin -n kube-system
 
+echo '###############################################################################'
+echo 'Create demo project'
+echo '###############################################################################'
 # Create demo project
 oc new-project company-website --display-name='Company Website' --description='My new company website based on a modern cloud native development stack.' --as=developer --as-group=system:authenticated --as-group=system:authenticated:oauth
 # Create Pull Secret for Red Hat Container Catalog
 kubectl create -f config/crc-secret.yaml --namespace=company-website
+# Create template for demo application
+oc create -f ./config/company-website-template.yml -n company-website
+
+# Prefetch images
+./prefetch_images.sh
