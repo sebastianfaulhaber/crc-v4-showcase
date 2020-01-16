@@ -73,6 +73,10 @@ objects:
     annotations:
       description: Defines how to build the application
       template.alpha.openshift.io/wait-for-ready: "true"
+    labels:
+      name: ${NAME}
+      app.kubernetes.io/part-of: company-website
+      app.kubernetes.io/instance: ${NAME}
     name: ${NAME}
   spec:
     output:
@@ -118,6 +122,7 @@ objects:
     labels:
       name: ${NAME}
       app.kubernetes.io/part-of: company-website
+      app.kubernetes.io/instance: ${NAME}
       app.openshift.io/runtime: nodejs
       app.openshift.io/runtime-version: '10'
     name: ${NAME}
@@ -132,6 +137,7 @@ objects:
         labels:
           name: ${NAME}
           app.kubernetes.io/part-of: company-website
+          app.kubernetes.io/instance: ${NAME}
           app.openshift.io/runtime: nodejs
           app.openshift.io/runtime-version: '10'
         name: ${NAME}
